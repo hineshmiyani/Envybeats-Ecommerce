@@ -34,7 +34,7 @@ const ProductDetails: React.FC<Props> = ({ product, products }) => {
         <div>
           <div className="image-container">
             <img
-              src={urlFor(image?.[index])?.url()}
+              src={image && urlFor(image?.[index])?.url()}
               className="product-detail-image"
               alt="main-image"
             />
@@ -146,7 +146,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: "blocking",
   };
 };
 
