@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import toast from "react-hot-toast";
 import {
@@ -16,6 +17,7 @@ import { IProduct } from "../lib/interfaces";
 
 const Cart = () => {
   const cartRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const {
     totalPrice,
     totalQuantities,
@@ -25,7 +27,7 @@ const Cart = () => {
     removeItemFromCart,
   } = useStateContext();
 
-  const handleCheckOut = async () => {
+  const checkOutWithStripe = async () => {
     const stripe = await getStripe();
     const response: any = await fetch("/api/stripe", {
       method: "post",
@@ -37,8 +39,61 @@ const Cart = () => {
 
     const data = await response.json();
     toast.loading("Redirecting...");
-
     stripe.redirectToCheckout({ sessionId: data.id });
+  };
+
+  const initializeRazorpay = () => {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  const checkOutWithRazorpay = async () => {
+    const res = await initializeRazorpay();
+
+    if (!res) {
+      alert("Razorpay SDK Failed to load");
+      return;
+    }
+
+    // Make API call to the serverless API
+    const data = await fetch("/api/razorpay", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cartItems),
+    }).then((t) => t.json());
+    console.log("data: ----------------------", data);
+    console.log("RAZOR_PAY_KEY_ID", process.env.NEXT_PUBLIC_RAZOR_PAY_KEY_ID);
+    var options = {
+      key: process.env.NEXT_PUBLIC_RAZOR_PAY_KEY_ID, // Enter the Key ID generated from the Dashboard
+      name: "Envy Beats",
+      currency: data.currency,
+      amount: data.amount,
+      order_id: data.id,
+      description: "Thankyou for your Purchased",
+      image: "",
+      // callback_url: "http://localhost:3000/success",
+      handler: (response: any) => {
+        console.log("response : ----------------------", response);
+        setShowCart(false);
+        router.push("/success");
+        // Validate payment at server - using webhooks is a better idea.
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+      },
+    };
+
+    const paymentObject = new (window as any).Razorpay(options);
+    paymentObject.open();
   };
 
   return (
@@ -131,10 +186,19 @@ const Cart = () => {
                           type="button"
                           className="btn"
                           onClick={() => {
-                            handleCheckOut();
+                            checkOutWithStripe();
                           }}
                         >
                           Pay with Stripe
+                        </button>
+                        <button
+                          type="button"
+                          className="btn"
+                          onClick={() => {
+                            checkOutWithRazorpay();
+                          }}
+                        >
+                          Pay with Razor Pay
                         </button>
                       </div>
                     </div>

@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { client, urlFor } from "../../lib/client";
 import { IContextType, IProduct } from "../../lib/interfaces";
@@ -15,18 +15,30 @@ import { useStateContext } from "../../context/StateContext";
 interface Props {
   product: IProduct;
   products: IProduct[];
+  params: { slug: string };
 }
 
-const ProductDetails: React.FC<Props> = ({ product, products }) => {
+const ProductDetails: React.FC<Props> = ({ product, products, params }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { qty, increaseQuantity, decreaseQuantity, addToCart, setShowCart } =
-    useStateContext();
+  const {
+    qty,
+    setQty,
+    increaseQuantity,
+    decreaseQuantity,
+    addToCart,
+    setShowCart,
+  } = useStateContext();
 
   const buyNow = () => {
     addToCart(product, qty);
     setShowCart(true);
   };
+
+  useEffect(() => {
+    // update qunatity when slug change
+    setQty(0);
+  }, [params.slug]);
 
   return (
     <div>
@@ -161,6 +173,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       product,
       products,
+      params,
     },
   };
 };

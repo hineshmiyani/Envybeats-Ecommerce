@@ -55,6 +55,7 @@ export interface IContextType {
   totalPrice: number;
   totalQuantities: number;
   qty: number;
+  setQty: Dispatch<SetStateAction<number>>;
   addToCart: (product: IProduct, quantity: number) => void;
   increaseQuantity: () => void;
   decreaseQuantity: () => void;
