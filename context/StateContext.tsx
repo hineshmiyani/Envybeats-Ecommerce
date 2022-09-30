@@ -42,7 +42,6 @@ const StateContext: React.FC<Props> = ({ children }) => {
   let foundProduct: IProduct | any, index: number;
 
   useEffect(() => {
-    debugger;
     // update total quantity and total price from the localStorage when first time render
     if (cartItems?.length > 0) {
       let cartItemData = cartItems?.reduce(

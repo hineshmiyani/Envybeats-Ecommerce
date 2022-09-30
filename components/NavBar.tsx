@@ -7,9 +7,9 @@ import Cart from "./Cart";
 
 const NavBar = () => {
   const { data: session } = useSession();
+  console.log({ session });
   const [showSignOutBtn, setShowSignOutBtn] = useState(false);
 
-  // debugger;
   const { showCart, setShowCart, totalQuantities } = useStateContext();
 
   return (
