@@ -29,12 +29,49 @@ export const useStateContext = () => useContext(Context);
 
 const StateContext: React.FC<Props> = ({ children }) => {
   const [showCart, setShowCart] = useState<boolean>(false);
-  const [cartItems, setCartItems] = useState<(IProduct | any)[]>([]);
+  const [cartItems, setCartItems] = useState<(IProduct | any)[]>(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("cartItems")) {
+      return JSON.parse(localStorage.getItem("cartItems") || "[]");
+    }
+    return [];
+  });
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantities, setTotalQuantities] = useState<number>(0);
   const [qty, setQty] = useState<number>(1);
 
   let foundProduct: IProduct | any, index: number;
+
+  useEffect(() => {
+    debugger;
+    // update total quantity and total price from the localStorage when first time render
+    if (cartItems?.length > 0) {
+      let cartItemData = cartItems?.reduce(
+        (prevValue, cartItems) => {
+          return {
+            ...prevValue,
+            totalQuantities: prevValue.totalQuantities + cartItems.quantity,
+            totalPrice:
+              prevValue.totalPrice + cartItems.quantity * cartItems.price,
+          };
+        },
+        {
+          totalQuantities: 0,
+          totalPrice: 0,
+        }
+      );
+      setTotalPrice(cartItemData?.totalPrice);
+      setTotalQuantities(cartItemData?.totalQuantities);
+    }
+  }, []);
+
+  useEffect(() => {
+    // update total quantity and total price when payment complete
+    if (cartItems?.length === 0) {
+      setTotalPrice(0);
+      setTotalQuantities(0);
+    }
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   // Add to Cart
   const addToCart = (product: IProduct, quantity: number) => {
@@ -143,7 +180,7 @@ const StateContext: React.FC<Props> = ({ children }) => {
 
   const decreaseQuantity = () => {
     setQty((prevValue: number) => {
-      if (prevValue < 1) return 1;
+      if (prevValue <= 1) return 1;
       return prevValue - 1;
     });
   };
