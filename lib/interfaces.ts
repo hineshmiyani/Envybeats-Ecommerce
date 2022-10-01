@@ -65,3 +65,15 @@ export interface IContextType {
   setTotalPrice: Dispatch<SetStateAction<number>>;
   setTotalQuantities: Dispatch<SetStateAction<number>>;
 }
+export interface ISuccessPageData {
+  _createdAt: string;
+  _id: string;
+  _rev: string;
+  _type: string;
+  _updatedAt: string;
+  buttonText: string;
+  contectEmail: string;
+  largeText: string;
+  smallText1: string;
+  smallText2: string;
+}
