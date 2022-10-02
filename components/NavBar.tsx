@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -43,12 +44,12 @@ const NavBar = () => {
                   <>
                     <div className="profile-details">
                       {session?.user?.image ? (
-                        <Image
+                        <img
                           src={session?.user?.image}
                           width={32}
                           height={32}
                           alt="profile-img"
-                        ></Image>
+                        ></img>
                       ) : (
                         <FaUserCircle fontSize={34} />
                       )}
