@@ -1,0 +1,73 @@
+.signIn {
+  width: 100%;
+  margin: auto;
+  height: 67vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.signInBox {
+  max-width: 620px;
+  padding: 40px 70px 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 8px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.boxTitle {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.authProvider {
+  font-family: system-ui, roboto, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 40px;
+  max-width: 300px;
+  width: 300px;
+  padding: 0 21px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 1px solid #d6d9dc;
+  text-align: center;
+  background: #fff;
+  color: #535a60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.providerIcon {
+  margin-right: 8px;
+}
+
+.providerIcon svg {
+  display: flex;
+  font-size: 18px;
+}
+
+.googleLogin {
+  color: #535a60;
+  border-color: #d6d9dc;
+}
+
+.googleLogin:hover {
+  background-color: #f3f3f3;
+}
+
+.facebookLogin {
+  color: #fff;
+  background-color: #1877f2;
+  border-color: transparent;
+}
+.facebookLogin:hover {
+  background-color: #3b82f6;
+}

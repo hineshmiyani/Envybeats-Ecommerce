@@ -77,3 +77,13 @@ export interface ISuccessPageData {
   smallText1: string;
   smallText2: string;
 }
+
+export interface Provider {
+  id: "facebook" | "google" | string;
+  name: string;
+  type: string;
+  signinUrl: string;
+  callbackUrl: string;
+  className?: string | any;
+  icon?: JSX.Element;
+}

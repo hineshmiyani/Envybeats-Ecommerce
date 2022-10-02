@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { AiOutlineShopping } from "react-icons/ai";
+import { MdOutlinePersonOutline } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 import { useStateContext } from "../context/StateContext";
 import Cart from "./Cart";
+import Image from "next/image";
 
 const NavBar = () => {
   const { data: session } = useSession();
-  console.log({ session });
-  const [showSignOutBtn, setShowSignOutBtn] = useState(false);
-
   const { showCart, setShowCart, totalQuantities } = useStateContext();
+  const router = useRouter();
+
+  if (router.route.includes("signin")) {
+    return (
+      <div className="navbar-container">
+        <p className="logo">
+          <Link href="/">Envy Beats</Link>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="navbar-container">
@@ -20,21 +32,50 @@ const NavBar = () => {
 
       <div style={{ display: "flex", gap: "20px" }}>
         {/* Sign In */}
-        {session ? (
-          <div
-            onMouseLeave={() => setShowSignOutBtn(false)}
-            onMouseEnter={() => setShowSignOutBtn(true)}
-          >
-            <p>{session?.user?.name}</p>
-            {showSignOutBtn && (
-              <button onClick={() => signOut()}>Sign Out</button>
-            )}
-          </div>
-        ) : (
-          <div>
-            <button onClick={() => signIn()}>Sign In</button>
-          </div>
-        )}
+        {/* Profile  */}
+        <div className="profile-icon">
+          <MdOutlinePersonOutline />
+          <>
+            {/* <div className="dialog-backdrop"></div> */}
+            <div className="profile-dialog-ctn">
+              <div className="profile-dialog">
+                {session ? (
+                  <>
+                    <div className="profile-details">
+                      {session?.user?.image ? (
+                        <Image
+                          src={session?.user?.image}
+                          width={32}
+                          height={32}
+                          alt="profile-img"
+                        ></Image>
+                      ) : (
+                        <FaUserCircle fontSize={34} />
+                      )}
+                      <div>
+                        <h3>{session?.user?.name}</h3>
+                        <p>{session?.user?.email}</p>
+                      </div>
+                    </div>
+                    <button type="button" onClick={() => signOut()}>
+                      SIGN OUT
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <h3>Welcome</h3>
+                    <p style={{ marginBottom: "10px" }}>
+                      Please sign in to place orders.
+                    </p>
+                    <button type="button" onClick={() => signIn()}>
+                      SIGN IN
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </>
+        </div>
 
         {/* Cart */}
         <button

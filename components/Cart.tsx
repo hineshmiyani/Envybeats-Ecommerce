@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
+import React, { useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useRef } from "react";
+import { signIn, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import {
   AiOutlineMinus,
@@ -17,6 +18,7 @@ import { IProduct } from "../lib/interfaces";
 
 const Cart = () => {
   const cartRef = useRef<HTMLDivElement>(null);
+  const { data: session } = useSession();
   const router = useRouter();
   const {
     totalPrice,
@@ -182,24 +184,36 @@ const Cart = () => {
                       </div>
 
                       <div className="btn-container">
-                        <button
-                          type="button"
-                          className="btn"
-                          onClick={() => {
-                            checkOutWithStripe();
-                          }}
-                        >
-                          Pay with Stripe
-                        </button>
-                        <button
-                          type="button"
-                          className="btn"
-                          onClick={() => {
-                            checkOutWithRazorpay();
-                          }}
-                        >
-                          Pay with Razor Pay
-                        </button>
+                        {session ? (
+                          <>
+                            <button
+                              type="button"
+                              className="btn"
+                              onClick={() => {
+                                checkOutWithStripe();
+                              }}
+                            >
+                              Pay with Stripe
+                            </button>
+                            <button
+                              type="button"
+                              className="btn"
+                              onClick={() => {
+                                checkOutWithRazorpay();
+                              }}
+                            >
+                              Pay with Razor Pay
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            type="button"
+                            className="btn"
+                            onClick={() => signIn()}
+                          >
+                            Sign In to Checkout
+                          </button>
+                        )}
                       </div>
                     </div>
                   )}

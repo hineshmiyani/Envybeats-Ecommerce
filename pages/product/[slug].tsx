@@ -37,7 +37,7 @@ const ProductDetails: React.FC<Props> = ({ product, products, params }) => {
 
   useEffect(() => {
     // update qunatity when slug change
-    setQty(0);
+    setQty(1);
   }, [params.slug]);
 
   return (
