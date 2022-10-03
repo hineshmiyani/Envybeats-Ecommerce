@@ -33,6 +33,7 @@ const ProductDetails: React.FC<Props> = ({ product, products, params }) => {
   const buyNow = () => {
     addToCart(product, qty);
     setShowCart(true);
+    setQty(1);
   };
 
   useEffect(() => {
@@ -110,6 +111,7 @@ const ProductDetails: React.FC<Props> = ({ product, products, params }) => {
               className="add-to-cart"
               onClick={() => {
                 addToCart(product, qty);
+                setQty(1);
               }}
             >
               Add to Cart

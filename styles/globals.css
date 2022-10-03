@@ -23,6 +23,7 @@ a {
 }
 .layout {
   padding: 10px;
+  overflow: hidden;
 }
 
 .navbar-container {
@@ -298,6 +299,7 @@ span.text-red {
   font-size: 30px;
   display: flex;
   gap: 10px;
+  cursor: pointer;
 }
 .cart-heading {
   display: flex;
@@ -332,9 +334,11 @@ span.text-red {
 .product-container {
   margin-top: 15px;
   overflow: auto;
-  max-height: 70vh;
+  /* max-height: 70vh; */
+  max-height: calc(100vh - 165px - 80px);
   padding: 20px 10px;
 }
+
 .product {
   display: flex;
   gap: 30px;
@@ -375,18 +379,33 @@ span.text-red {
   background: transparent;
   border: none;
 }
+
 .cart-bottom {
   position: absolute;
-  bottom: 12px;
-  right: 5px;
+  bottom: 0;
+  right: 0;
   width: 100%;
-  padding: 30px 65px;
+  padding: 24px 40px;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.btn-container {
-  width: 400px;
-  margin: auto;
+.cart-bottom .btn {
+  margin: 0;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: 500;
 }
+
+.cart-bottom .btn-container {
+  width: 100%;
+  margin: 20px auto;
+  display: flex;
+  gap: 20px;
+}
+
 .btn {
   width: 100%;
   max-width: 400px;
@@ -559,13 +578,16 @@ span.text-red {
 .success-wrapper,
 .cancel-wrapper {
   background-color: white;
-  min-height: 60vh;
+  min-height: calc(100vh - 111.6px - 90px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .success,
 .cancel {
   width: 1000px;
-  margin: auto;
-  margin-top: 160px;
+  margin: 0;
+  /* margin-top: 160px; */
   background-color: #dcdcdc;
   padding: 50px;
   border-radius: 15px;
@@ -766,8 +788,9 @@ span.text-red {
     height: 350px;
   }
   .cart-container {
-    width: 415px;
     padding: 4px;
+    max-width: 415px;
+    width: 100%;
   }
   .cart-heading {
     margin-top: 35px;
@@ -823,12 +846,12 @@ span.text-red {
   }
   .success-wrapper,
   .cancel-wrapper {
-    min-height: 69vh;
+    min-height: calc(100vh - 112px - 90px);
   }
   .success,
   .cancel {
-    width: 370px;
-    margin-top: 100px;
+    width: 100%;
+    margin: 0;
     padding: 20px;
   }
   .success {

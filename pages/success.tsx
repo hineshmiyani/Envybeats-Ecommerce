@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Success: React.FC<Props> = ({ successPageData }) => {
-  console.log("successPageData", successPageData);
+  // console.log("successPageData", successPageData);
   const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();
 
   useEffect(() => {

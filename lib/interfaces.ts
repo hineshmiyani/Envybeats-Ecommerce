@@ -55,6 +55,8 @@ export interface IContextType {
   totalPrice: number;
   totalQuantities: number;
   qty: number;
+  footerLinks: any;
+  setfooterLinks: Dispatch<SetStateAction<any[] | undefined>>;
   setQty: Dispatch<SetStateAction<number>>;
   addToCart: (product: IProduct, quantity: number) => void;
   increaseQuantity: () => void;
@@ -78,7 +80,7 @@ export interface ISuccessPageData {
   smallText2: string;
 }
 
-export interface Provider {
+export interface IProvider {
   id: "facebook" | "google" | string;
   name: string;
   type: string;
@@ -86,4 +88,14 @@ export interface Provider {
   callbackUrl: string;
   className?: string | any;
   icon?: JSX.Element;
+}
+
+export interface IFooterLinks {
+  _createdAt: string;
+  _id: string;
+  _rev: string;
+  _type: string;
+  _updatedAt: string;
+  instagram: string;
+  twitter: string;
 }

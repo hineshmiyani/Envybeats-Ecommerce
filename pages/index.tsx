@@ -2,13 +2,22 @@ import React, { useEffect } from "react";
 import { FooterBanner, HeroBanner, Product } from "../components";
 import { GetServerSideProps } from "next";
 import { client } from "../lib/client";
-import { IBanner, IProduct } from "../lib/interfaces";
+import { IBanner, IFooterLinks, IProduct } from "../lib/interfaces";
+import { useStateContext } from "../context/StateContext";
+
 interface Props {
   products: IProduct[];
   banner: IBanner[];
+  footerLinks: IFooterLinks[];
 }
 
-const Home: React.FC<Props> = ({ products, banner }) => {
+const Home: React.FC<Props> = ({ products, banner, footerLinks }) => {
+  const { setfooterLinks } = useStateContext();
+
+  useEffect(() => {
+    setfooterLinks(footerLinks);
+  }, [footerLinks]);
+
   return (
     <>
       <HeroBanner heroBanner={banner?.[0]} />
@@ -33,10 +42,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const bannerQuery = '*[_type == "banner"]';
   const banner = await client.fetch(bannerQuery);
 
+  const footerQuery = '*[_type == "footer"]';
+  const footerLinks = await client.fetch(footerQuery);
+
   return {
     props: {
       products,
       banner,
+      footerLinks,
     },
   };
 };

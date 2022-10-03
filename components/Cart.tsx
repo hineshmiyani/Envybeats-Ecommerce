@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
@@ -24,10 +24,22 @@ const Cart = () => {
     totalPrice,
     totalQuantities,
     cartItems,
+    showCart,
     setShowCart,
     toggleCartItemQunatity,
     removeItemFromCart,
   } = useStateContext();
+
+  useEffect(() => {
+    if (showCart) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      if (document.body.style.overflow == "hidden") {
+        document.body.style.overflow = "auto";
+      }
+    };
+  }, []);
 
   const checkOutWithStripe = async () => {
     const stripe = await getStripe();
@@ -99,8 +111,12 @@ const Cart = () => {
   };
 
   return (
-    <div className="cart-wrapper" ref={cartRef}>
-      <div className="cart-container">
+    <div
+      className="cart-wrapper"
+      ref={cartRef}
+      onClick={() => setShowCart(false)}
+    >
+      <div className="cart-container" onClick={(e) => e.stopPropagation()}>
         <button
           type="button"
           className="cart-heading"
@@ -127,6 +143,7 @@ const Cart = () => {
           </div>
         )}
 
+        {/* product-container */}
         <div className="product-container">
           {cartItems.length >= 1 &&
             cartItems.map((item: IProduct, index: number) => (
@@ -174,53 +191,49 @@ const Cart = () => {
                       <TiDeleteOutline />
                     </button>
                   </div>
-
-                  {/* Subtotal */}
-                  {cartItems.length >= 1 && (
-                    <div className="cart-bottom">
-                      <div className="total">
-                        <h3>Subtotal:</h3>
-                        <h3>₹ {totalPrice}</h3>
-                      </div>
-
-                      <div className="btn-container">
-                        {session ? (
-                          <>
-                            <button
-                              type="button"
-                              className="btn"
-                              onClick={() => {
-                                checkOutWithStripe();
-                              }}
-                            >
-                              Pay with Stripe
-                            </button>
-                            <button
-                              type="button"
-                              className="btn"
-                              onClick={() => {
-                                checkOutWithRazorpay();
-                              }}
-                            >
-                              Pay with Razor Pay
-                            </button>
-                          </>
-                        ) : (
-                          <button
-                            type="button"
-                            className="btn"
-                            onClick={() => signIn()}
-                          >
-                            Sign In to Checkout
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
         </div>
+
+        {/* Subtotal */}
+        {cartItems.length >= 1 && (
+          <div className="cart-bottom">
+            <div className="total">
+              <h3>Subtotal:</h3>
+              <h3>₹ {totalPrice}</h3>
+            </div>
+
+            <div className="btn-container">
+              {session ? (
+                <>
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={() => {
+                      checkOutWithStripe();
+                    }}
+                  >
+                    Pay with Stripe
+                  </button>
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={() => {
+                      checkOutWithRazorpay();
+                    }}
+                  >
+                    Pay with Razor Pay
+                  </button>
+                </>
+              ) : (
+                <button type="button" className="btn" onClick={() => signIn()}>
+                  Sign In to Checkout
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

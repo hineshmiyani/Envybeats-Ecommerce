@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { toast } from "react-hot-toast";
-import { Product } from "../components";
-import { IContextType, IProduct } from "../lib/interfaces";
+import { IContextType, IFooterLinks, IProduct } from "../lib/interfaces";
 
 interface Props {
   children: JSX.Element;
@@ -14,6 +13,8 @@ const defaultValue = {
   totalPrice: 0,
   totalQuantities: 0,
   qty: 0,
+  footerLinks: [],
+  setfooterLinks: () => {},
   setQty: () => {},
   addToCart: () => {},
   increaseQuantity: () => {},
@@ -39,6 +40,7 @@ const StateContext: React.FC<Props> = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantities, setTotalQuantities] = useState<number>(0);
   const [qty, setQty] = useState<number>(1);
+  const [footerLinks, setfooterLinks] = useState<any[]>();
 
   let foundProduct: IProduct | any, index: number;
 
@@ -194,6 +196,8 @@ const StateContext: React.FC<Props> = ({ children }) => {
         totalPrice,
         totalQuantities,
         qty,
+        footerLinks,
+        setfooterLinks,
         setQty,
         addToCart,
         increaseQuantity,

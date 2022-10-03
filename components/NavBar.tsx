@@ -1,17 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { AiOutlineShopping } from "react-icons/ai";
 import { MdOutlinePersonOutline } from "react-icons/md";
-import { FaUserCircle } from "react-icons/fa";
 import { useStateContext } from "../context/StateContext";
 import Cart from "./Cart";
-import Image from "next/image";
+import UserProfileDialog from "./UserProfileDialog";
 
 const NavBar = () => {
-  const { data: session } = useSession();
   const { showCart, setShowCart, totalQuantities } = useStateContext();
   const router = useRouter();
 
@@ -36,46 +34,7 @@ const NavBar = () => {
         {/* Profile  */}
         <div className="profile-icon">
           <MdOutlinePersonOutline />
-          <>
-            {/* <div className="dialog-backdrop"></div> */}
-            <div className="profile-dialog-ctn">
-              <div className="profile-dialog">
-                {session ? (
-                  <>
-                    <div className="profile-details">
-                      {session?.user?.image ? (
-                        <img
-                          src={session?.user?.image}
-                          width={32}
-                          height={32}
-                          alt="profile-img"
-                        ></img>
-                      ) : (
-                        <FaUserCircle fontSize={34} />
-                      )}
-                      <div>
-                        <h3>{session?.user?.name}</h3>
-                        <p>{session?.user?.email}</p>
-                      </div>
-                    </div>
-                    <button type="button" onClick={() => signOut()}>
-                      SIGN OUT
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <h3>Welcome</h3>
-                    <p style={{ marginBottom: "10px" }}>
-                      Please sign in to place orders.
-                    </p>
-                    <button type="button" onClick={() => signIn()}>
-                      SIGN IN
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          </>
+          <UserProfileDialog />
         </div>
 
         {/* Cart */}
