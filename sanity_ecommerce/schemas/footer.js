@@ -4,11 +4,6 @@ export default {
   type: "document",
   fields: [
     {
-      name: "buttonText",
-      title: "ButtonText",
-      type: "string",
-    },
-    {
       name: "instagram",
       title: "Instagram",
       type: "url",

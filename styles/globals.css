@@ -404,6 +404,7 @@ span.text-red {
   margin: 20px auto;
   display: flex;
   gap: 20px;
+  justify-content: center;
 }
 
 .btn {
@@ -724,6 +725,10 @@ span.text-red {
 }
 
 @media screen and (max-width: 800px) {
+  .navbar-container {
+    margin: 18px 8px;
+  }
+
   .hero-banner-container {
     height: 560px;
   }
@@ -812,7 +817,8 @@ span.text-red {
     width: 150px;
   }
   .product-detail-container {
-    margin: 20px;
+    margin: 20px 0;
+    justify-content: center;
   }
 
   .item-desc .flex {
