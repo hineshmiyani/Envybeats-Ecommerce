@@ -23,7 +23,7 @@ const Home: React.FC<Props> = ({ products, banner, footerLinks }) => {
       <HeroBanner heroBanner={banner?.[0]} />
       <div className="products-heading">
         <h2>Best Selling Products</h2>
-        <p>Speakers of many variations</p>
+        <p>Enjoy the exceptional quality in all our products</p>
       </div>
       <div className="products-container">
         {products?.map((product: IProduct) => (

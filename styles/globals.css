@@ -71,7 +71,8 @@ span.text-red {
 }
 .logo {
   color: gray;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .cart-icon {
@@ -144,6 +145,7 @@ span.text-red {
 }
 .hero-banner-container .beats-solo {
   font-size: 20px;
+  margin-left: -2px;
 }
 .hero-banner-container button {
   border-radius: 15px;
@@ -157,15 +159,15 @@ span.text-red {
   cursor: pointer;
   z-index: 10000 !important;
 }
-
 .hero-banner-container h3 {
   font-size: 4rem;
   margin-top: 4px;
+  margin-left: -3px;
 }
 .hero-banner-container h1 {
   color: white;
   font-size: 10em;
-  margin-left: -20px;
+  margin-left: -12px;
   text-transform: uppercase;
 }
 .hero-banner-image {
@@ -241,7 +243,7 @@ span.text-red {
 .banner-desc .left h3 {
   font-weight: 900;
   font-size: 80px;
-  margin-left: 25px;
+  margin-left: 15px;
 }
 .banner-desc .left p {
   margin: 18px;
@@ -259,6 +261,7 @@ span.text-red {
 .banner-desc .right h3 {
   font-weight: 800;
   font-size: 60px;
+  margin-left: -2px;
 }
 .banner-desc .right p {
   font-size: 18px;
