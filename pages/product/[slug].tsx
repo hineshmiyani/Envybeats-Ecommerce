@@ -42,9 +42,9 @@ const ProductDetails: React.FC<Props> = ({ product, products, params }) => {
   }, [params.slug]);
 
   return (
-    <div>
+    <div style={{ margin: "auto 4px" }}>
       <div className="product-detail-container">
-        <div>
+        <div className="product-images-ctn">
           <div className="image-container">
             <img
               src={image && urlFor(image?.[index])?.url()}
@@ -81,7 +81,7 @@ const ProductDetails: React.FC<Props> = ({ product, products, params }) => {
           </div>
           <h4>Details: </h4>
           <p>{details}</p>
-          <p className="price">₹ {price}</p>
+          <p className="price">₹ {price?.toLocaleString("en-IN")}</p>
           <div className="quantity">
             <h3>Quantity :</h3>
             <p className="quantity-desc">

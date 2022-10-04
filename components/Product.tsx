@@ -13,19 +13,21 @@ const Product: React.FC<IProductProps> = ({
 }) => {
   return (
     <div>
-      <Link href={`/product/${slug?.current}`}>
-        <div className="product-card">
-          <Image
-            src={urlFor(image?.[0]).url()}
-            width="250"
-            height="250"
-            alt="product"
-            className="product-image"
-          />
-          <p className="product-name">{name}</p>
-          <p className="product-name">₹ {price}</p>
-        </div>
-      </Link>
+      {image?.[0] && (
+        <Link href={`/product/${slug?.current}`}>
+          <div className="product-card">
+            <Image
+              src={urlFor(image?.[0])?.url()}
+              width="250"
+              height="250"
+              alt="product"
+              className="product-image"
+            />
+            <p className="product-name">{name}</p>
+            <p className="product-name">₹ {price?.toLocaleString("en-IN")}</p>
+          </div>
+        </Link>
+      )}
     </div>
   );
 };

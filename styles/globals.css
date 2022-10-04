@@ -29,7 +29,7 @@ a {
 .navbar-container {
   display: flex;
   justify-content: space-between;
-  margin: 18px 32px;
+  margin: 18px;
   position: relative;
 }
 
@@ -120,6 +120,7 @@ span.text-red {
   background-color: #ebebeb;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
+  object-fit: contain;
 }
 
 .product-name {
@@ -139,6 +140,7 @@ span.text-red {
   height: 500px;
   line-height: 0.9;
   width: 100%;
+  overflow: hidden;
 }
 .hero-banner-container .beats-solo {
   font-size: 20px;
@@ -168,10 +170,10 @@ span.text-red {
 }
 .hero-banner-image {
   position: absolute;
-  top: 0%;
-  right: 20%;
-  width: 450px;
-  height: 450px;
+  top: -23%;
+  right: 18%;
+  height: 130%;
+  transform: rotate(38deg);
 }
 
 .desc {
@@ -219,6 +221,7 @@ span.text-red {
   color: white;
   width: 100%;
   margin-top: 120px;
+  overflow: hidden;
 }
 .banner-desc {
   display: flex;
@@ -245,10 +248,10 @@ span.text-red {
 }
 .footer-banner-image {
   position: absolute;
-  /* top: -35%;
-  left: 8%; */
-  top: -25%;
-  left: 25%;
+  top: -41%;
+  left: 29%;
+  height: 156%;
+  transform: rotate(23deg);
 }
 .banner-desc .right {
   line-height: 1.4;
@@ -349,6 +352,7 @@ span.text-red {
   height: 150px;
   border-radius: 15px;
   background-color: #ebebeb;
+  object-fit: contain;
 }
 .item-desc .flex {
   display: flex;
@@ -437,7 +441,7 @@ span.text-red {
 .product-detail-image {
   border-radius: 15px;
   background-color: #ebebeb;
-
+  object-fit: contain;
   width: 400px;
   height: 400px;
   cursor: pointer;
@@ -448,6 +452,7 @@ span.text-red {
 }
 .small-images-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 20px;
 }
@@ -671,7 +676,7 @@ span.text-red {
 }
 
 .profile-dialog {
-  width: 260px;
+  width: 248px;
   height: 120px;
   position: absolute;
   right: -12px;
@@ -722,6 +727,15 @@ span.text-red {
 
 .profile-details img {
   border-radius: 100%;
+}
+
+.profile-details > div {
+  width: 180px;
+}
+.profile-details > div > * {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 800px) {
@@ -788,6 +802,13 @@ span.text-red {
   .product-detail-container {
     flex-wrap: wrap;
   }
+
+  .product-detail-container .product-images-ctn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .product-detail-container .product-detail-image {
     width: 350px;
     height: 350px;
