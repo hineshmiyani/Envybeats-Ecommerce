@@ -100,11 +100,12 @@ span.text-red {
   font-weight: 600;
 }
 .products-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 4fr));
+  justify-items: center;
+  padding: 0 18px;
   gap: 15px;
-  margin-top: 20px;
+  margin: 20px auto 0;
   width: 100%;
 }
 .product-card {
@@ -176,6 +177,7 @@ span.text-red {
   right: 18%;
   height: 130%;
   transform: rotate(38deg);
+  object-fit: contain;
 }
 
 .desc {
@@ -254,6 +256,7 @@ span.text-red {
   left: 29%;
   height: 156%;
   transform: rotate(23deg);
+  object-fit: contain;
 }
 .banner-desc .right {
   line-height: 1.4;
@@ -351,7 +354,7 @@ span.text-red {
   padding: 20px;
 }
 .product .cart-product-image {
-  width: 180px;
+  width: 150px;
   height: 150px;
   border-radius: 15px;
   background-color: #ebebeb;
@@ -753,7 +756,9 @@ span.text-red {
     width: 77%;
     height: 62%;
     top: -2%;
-    right: -6%;
+    right: -15%;
+    object-fit: contain;
+    transform: rotate(18deg);
   }
   .footer-banner-container {
     height: 560px;
@@ -761,9 +766,11 @@ span.text-red {
   }
   .footer-banner-image {
     width: 77%;
-    left: 30%;
+    left: 36%;
     top: 6%;
     height: 56%;
+    object-fit: contain;
+    transform: rotate(12deg);
   }
   .banner-desc .left h3 {
     font-weight: 900;
