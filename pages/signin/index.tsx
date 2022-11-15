@@ -9,8 +9,8 @@ import {
 import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { IProvider } from "../../lib/interfaces";
-import styles from "./signin.module.css";
 import { useStateContext } from "../../context/StateContext";
+import styles from "./signin.module.css";
 
 interface Props {
   providers:
